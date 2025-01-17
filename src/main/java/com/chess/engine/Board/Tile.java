@@ -1,4 +1,5 @@
-package com.chess;
+package com.chess.engine.Board;
+import com.chess.engine.Pieces.Piece;
 
 public abstract class Tile {
 
