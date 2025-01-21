@@ -9,6 +9,11 @@ import java.util.Collection;
 import java.util.List;
 
 public abstract class Piece {
+
+    protected final BoardPosition piecePosition;
+    protected final Alliance pieceAlliance;
+
+
     public BoardPosition getPiecePosition() {
         return piecePosition;
     }
@@ -17,8 +22,7 @@ public abstract class Piece {
         return pieceAlliance;
     }
 
-    protected final BoardPosition piecePosition;
-    protected final Alliance pieceAlliance;
+
 
     Piece(final Alliance pieceAlliance, final BoardPosition piecePosition) {
         this.pieceAlliance = pieceAlliance;

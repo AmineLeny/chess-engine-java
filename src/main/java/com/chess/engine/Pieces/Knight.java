@@ -1,6 +1,8 @@
 package com.chess.engine.Pieces;
 import com.chess.engine.Alliance;
 import com.chess.engine.Board.*;
+import com.chess.engine.Board.Move.AttackingMove;
+import com.chess.engine.Board.Move.MajorMove;
 import com.google.common.collect.ImmutableList;
 
 import java.util.ArrayList;
@@ -8,10 +10,14 @@ import java.util.Collection;
 import java.util.List;
 
 public class Knight extends Piece {
-    final static int[][] LEGAL_CANDIDATE_MOVES = {{2,1},{2,-1},{-2,-1},{-2,-1},{1,2},{-1,2},{1,-2},{-1,-2}};
-    Knight(final BoardPosition piecePosition , final Alliance pieceAlliance)  {
+    private static final int[][] LEGAL_CANDIDATE_MOVES = {
+            {2, 1}, {2, -1}, {-2, 1}, {-2, -1},
+            {1, 2}, {-1, 2}, {1, -2}, {-1, -2}
+    };
+    public Knight(final BoardPosition piecePosition , final Alliance pieceAlliance)  {
         super(pieceAlliance, piecePosition);
     }
+
 
     @Override
     public Collection<Move> calculateLegalMove (final Board board) {
@@ -29,14 +35,14 @@ public class Knight extends Piece {
             Tile candidateDestinationTile = board.getTile(candidateDestinationPosition);
 
                 if( !candidateDestinationTile.isTileOccupied() )  {
-                    legalMoves.add(new Move(candidateDestinationPosition));
+                    legalMoves.add(new MajorMove(board, this , candidateDestinationPosition) );
                 }
 
                 else {
                     final Piece candidatePiece = candidateDestinationTile.getPiece();
                     final Alliance candidatePieceAlliance = candidatePiece.getPieceAlliance();
                     if( this.pieceAlliance != candidatePieceAlliance )  {
-                        legalMoves.add(new Move(candidateDestinationPosition));
+                        legalMoves.add(new AttackingMove(board,this,candidateDestinationPosition,candidatePiece));
                     }
                 }
         }
