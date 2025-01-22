@@ -1,5 +1,4 @@
 package com.chess.engine.Pieces;
-
 import com.chess.engine.Alliance;
 import com.chess.engine.Board.*;
 import com.chess.engine.Board.Move.AttackingMove;
@@ -10,16 +9,19 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-public class Bishop extends Piece {
-    public Bishop(Alliance alliance, BoardPosition piecePosition) {
+public class Rook extends Piece {
+
+
+    public Rook(Alliance alliance, BoardPosition piecePosition){
         super(alliance, piecePosition);
     }
 
     private static final int[][] CANDIDATE_MOVE_VECTOR_COORDINATES = {
-            {1, 1}, // UP-RIGHT
-            {1, -1}, // DOWN-RIGHT
-            {-1, 1}, // UP-LEFT
-            {-1, -1}}; // DOWN-LEFT
+            {0, 1}, // UP
+            {0, -1}, // DOWN
+            {1, 0}, // RIGHT
+            {-1, 0}// LEFT
+    };
 
 
     @Override
@@ -28,14 +30,14 @@ public class Bishop extends Piece {
         List<Move> legalMoves = new ArrayList<>();
 
         for (int[] currentCandidate : CANDIDATE_MOVE_VECTOR_COORDINATES) {
-            int xCandidateDestinationPosition = this.piecePosition.x();
-            int yCandidateDestinationPosition = this.piecePosition.y();
+            int candidateX = this.piecePosition.x();
+            int candidateY = this.piecePosition.y();
 
             while (true) {
 
-                xCandidateDestinationPosition += currentCandidate[0];
-                yCandidateDestinationPosition += currentCandidate[1];
-                BoardPosition candidateDestinationPosition = new BoardPosition(xCandidateDestinationPosition, yCandidateDestinationPosition);
+                candidateX += currentCandidate[0];
+                candidateY += currentCandidate[1];
+                BoardPosition candidateDestinationPosition = new BoardPosition(candidateX, candidateY);
 
                 if (!BoardUtils.isPositionValid(candidateDestinationPosition)) {
                     break; //out of bounds
@@ -52,8 +54,7 @@ public class Bishop extends Piece {
                             legalMoves.add(new AttackingMove(board, this, candidateDestinationPosition, candidatePiece));
                         }
 
-                        // the path is blocked either by an enemy-piece or an ally-piece so we break out of the loop
-                        break;
+                        break; // the path is blocked either by an enemy-piece or an ally-piece so we break out of the loop
                     }
 
                 }

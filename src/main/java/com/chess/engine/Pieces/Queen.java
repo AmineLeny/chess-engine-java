@@ -2,40 +2,45 @@ package com.chess.engine.Pieces;
 
 import com.chess.engine.Alliance;
 import com.chess.engine.Board.*;
-import com.chess.engine.Board.Move.AttackingMove;
-import com.chess.engine.Board.Move.MajorMove;
 import com.google.common.collect.ImmutableList;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-public class Bishop extends Piece {
-    public Bishop(Alliance alliance, BoardPosition piecePosition) {
-        super(alliance, piecePosition);
-    }
+public class Queen extends Piece {
+
 
     private static final int[][] CANDIDATE_MOVE_VECTOR_COORDINATES = {
             {1, 1}, // UP-RIGHT
             {1, -1}, // DOWN-RIGHT
             {-1, 1}, // UP-LEFT
-            {-1, -1}}; // DOWN-LEFT
+            {-1, -1},
+            {0, 1}, // UP
+            {0, -1}, // DOWN
+            {1, 0}, // RIGHT
+            {-1, 0} }; // DOWN-LEFT
 
 
+    public Queen (Alliance alliance , BoardPosition piecePosition) {
+        super( alliance , piecePosition);
+    }
     @Override
-    public Collection<Move> calculateLegalMove(final Board board) {
+    public Collection<Move> calculateLegalMove(Board board) {
+
+
 
         List<Move> legalMoves = new ArrayList<>();
 
         for (int[] currentCandidate : CANDIDATE_MOVE_VECTOR_COORDINATES) {
-            int xCandidateDestinationPosition = this.piecePosition.x();
-            int yCandidateDestinationPosition = this.piecePosition.y();
+            int candidateX = this.piecePosition.x();
+            int candidateY = this.piecePosition.y();
 
             while (true) {
 
-                xCandidateDestinationPosition += currentCandidate[0];
-                yCandidateDestinationPosition += currentCandidate[1];
-                BoardPosition candidateDestinationPosition = new BoardPosition(xCandidateDestinationPosition, yCandidateDestinationPosition);
+                candidateX += currentCandidate[0];
+                candidateY += currentCandidate[1];
+                BoardPosition candidateDestinationPosition = new BoardPosition(candidateX, candidateY);
 
                 if (!BoardUtils.isPositionValid(candidateDestinationPosition)) {
                     break; //out of bounds
@@ -44,16 +49,15 @@ public class Bishop extends Piece {
                     Tile candidateDestinationTile = board.getTile(candidateDestinationPosition);
 
                     if (!candidateDestinationTile.isTileOccupied()) {
-                        legalMoves.add(new MajorMove(board, this, candidateDestinationPosition));
+                        legalMoves.add(new Move.MajorMove(board, this, candidateDestinationPosition));
                     } else {
                         final Piece candidatePiece = candidateDestinationTile.getPiece();
                         final Alliance candidatePieceAlliance = candidatePiece.getPieceAlliance();
                         if (this.pieceAlliance != candidatePieceAlliance) {
-                            legalMoves.add(new AttackingMove(board, this, candidateDestinationPosition, candidatePiece));
+                            legalMoves.add(new Move.AttackingMove(board, this, candidateDestinationPosition, candidatePiece));
                         }
 
-                        // the path is blocked either by an enemy-piece or an ally-piece so we break out of the loop
-                        break;
+                        break; // the path is blocked either by an enemy-piece or an ally-piece so we break out of the loop
                     }
 
                 }
@@ -64,6 +68,9 @@ public class Bishop extends Piece {
 
         }
         return ImmutableList.copyOf(legalMoves);
-    }
 
+
+
+
+    }
 }
