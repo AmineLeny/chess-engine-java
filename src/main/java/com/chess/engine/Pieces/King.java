@@ -33,10 +33,8 @@ public class King extends Piece {
         List<Move> legalMoves = new ArrayList<>();
 
         for ( int[] currentCandidate : LEGAL_CANDIDATE_MOVES) {
-            final int xPosition = piecePosition.x() + currentCandidate[0] ;
-            final int yPosition = piecePosition.y() + currentCandidate[1] ;
 
-            BoardPosition candidateDestinationPosition =  new BoardPosition(xPosition,yPosition);
+            final BoardPosition candidateDestinationPosition =  new BoardPosition(piecePosition.x() + currentCandidate[0],piecePosition.y() + currentCandidate[1]);
 
             if(  BoardUtils.isPositionValid(candidateDestinationPosition)  ) {
 
