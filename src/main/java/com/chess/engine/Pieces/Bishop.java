@@ -22,6 +22,11 @@ public class Bishop extends Piece {
             {-1, -1}}; // DOWN-LEFT
 
 
+
+
+
+
+
     @Override
     public Collection<Move> calculateLegalMove(final Board board) {
 
@@ -65,5 +70,13 @@ public class Bishop extends Piece {
         }
         return ImmutableList.copyOf(legalMoves);
     }
+
+@Override
+    public String toString() {
+        return PieceType.BISHOP.toString();
+}
+
+
+
 
 }

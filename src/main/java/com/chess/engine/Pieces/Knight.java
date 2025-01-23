@@ -14,7 +14,7 @@ public class Knight extends Piece {
             {2, 1}, {2, -1}, {-2, 1}, {-2, -1},
             {1, 2}, {-1, 2}, {1, -2}, {-1, -2}
     };
-    public Knight(final BoardPosition piecePosition , final Alliance pieceAlliance)  {
+    public Knight( final Alliance pieceAlliance,final BoardPosition piecePosition )  {
         super(pieceAlliance, piecePosition);
     }
 
@@ -50,5 +50,9 @@ public class Knight extends Piece {
         return ImmutableList.copyOf(legalMoves);
 
 }
+    @Override
+    public String toString() {
+        return PieceType.KNIGHT.toString();
+    }
 
 }

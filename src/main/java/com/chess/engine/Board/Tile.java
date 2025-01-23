@@ -1,8 +1,8 @@
 package com.chess.engine.Board;
+import com.chess.engine.Alliance;
 import com.chess.engine.Pieces.Piece;
 import com.google.common.collect.ImmutableMap;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public abstract class Tile {
@@ -26,7 +26,7 @@ public abstract class Tile {
     }
 
     // factory methode to generate Tiles
-    public static Tile CreateTile(final int xCoordinate , final int yCoordinate , Piece piece) {
+    public static Tile createTile(final int xCoordinate , final int yCoordinate , Piece piece) {
         return piece == null ? EMPTY_TILES_CACHE.get(new BoardPosition(xCoordinate,yCoordinate)) : new OccupiedTile(xCoordinate,yCoordinate , piece);
     }
 
@@ -44,10 +44,19 @@ public abstract class Tile {
         private EmptyTile(final int xCoordinate , final int yCoordinate) {
             super(xCoordinate, yCoordinate);
         }
+
+        @Override
+        public String toString() {
+            return "-";
+
+        }
+
+
         @Override
         public boolean isTileOccupied() {
             return false;
         }
+
         @Override
         public Piece getPiece() {
             return null;
@@ -61,10 +70,20 @@ public abstract class Tile {
             super(xCoordinate, yCoordinate);
             this.pieceOnTile = piece;
         }
+
+        @Override
+        public String toString() {
+            String pieceString = getPiece().toString();  // Get the piece's string representation
+            return this.getPiece().getPieceAlliance().isWhite() ? pieceString.toLowerCase() : pieceString;
+        }
+
+
+
         @Override
         public boolean isTileOccupied() {
             return true;
         }
+
         @Override
         public Piece getPiece() {
             return this.pieceOnTile ;
