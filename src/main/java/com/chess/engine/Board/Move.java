@@ -6,6 +6,8 @@ public abstract class Move {
 
     final Board board;
     final Piece movedPiece;
+
+
     final BoardPosition destinationCoordinate;
 
     private Move(final Board board, final Piece movedPiece, final BoardPosition destinationCoordinate) {
@@ -13,6 +15,12 @@ public abstract class Move {
         this.movedPiece = movedPiece;
         this.destinationCoordinate = destinationCoordinate;
     }
+    public BoardPosition getDestinationCoordinate() {
+        return destinationCoordinate;
+    }
+
+
+
     // attacking move class
     public static final class AttackingMove extends Move {
         final Piece attackedPiece ;

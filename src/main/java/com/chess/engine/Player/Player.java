@@ -2,21 +2,38 @@ package com.chess.engine.Player;
 
 import com.chess.engine.Alliance;
 import com.chess.engine.Board.Board;
+import com.chess.engine.Board.BoardPosition;
 import com.chess.engine.Board.Move;
 import com.chess.engine.Pieces.King;
 import com.chess.engine.Pieces.Piece;
+import com.google.common.collect.ImmutableList;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 public abstract class Player {
     protected final Board board;
     protected final King playerKing;
     protected final Collection<Move> legalMoves;
+    protected final boolean isInCheck;
 
     Player(Board board, Collection<Move> legalMoves, Collection<Move> opponentMoves) {
         this.board = board;
         this.playerKing = establishKing();
         this.legalMoves = legalMoves;
+        this.isInCheck = ! this.calculateAttackOnTile(this.playerKing.getPiecePosition() , opponentMoves).isEmpty();
+
+    }
+
+    private Collection<Move> calculateAttackOnTile(BoardPosition piecePosition, Collection<Move> opponentMoves) {
+
+            Collection<Move> attackingMoves = new ArrayList<>();
+            for ( Move move : opponentMoves) {
+                if(move.getDestinationCoordinate().equals(piecePosition)) {
+                        attackingMoves.add(move);
+                }
+            }
+            return ImmutableList.copyOf(attackingMoves);
 
     }
 
@@ -36,12 +53,26 @@ public abstract class Player {
     }
 // don't forget to implement these methods
     public boolean isIncheck() {
-        return false;
+        return this.isInCheck;
     }
 
     public boolean isInCheckMate() {
-        return false;
+        return this.isInCheck && ! hasEscapeMoves() ;
     }
+    public boolean isInStalemate() {
+        return !isInCheck && ! hasEscapeMoves() ;
+    }
+
+    protected boolean hasEscapeMoves() {
+        for( final Move move : legalMoves) {
+            final MoveTransition transition = makeMove(move);
+            if(transition.getMoveStatus().isDone()){
+                return true;
+            }
+            }
+        return false;
+        }
+
 
     public boolean isCastled(){
         return false;
