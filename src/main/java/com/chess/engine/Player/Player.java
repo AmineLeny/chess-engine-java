@@ -1,5 +1,6 @@
 package com.chess.engine.Player;
 
+import com.chess.engine.Alliance;
 import com.chess.engine.Board.Board;
 import com.chess.engine.Board.Move;
 import com.chess.engine.Pieces.King;
@@ -30,5 +31,27 @@ public abstract class Player {
 
     }
 
+    public boolean isMoveLegal(final Move move) {
+        return legalMoves.contains(move);
+    }
+// don't forget to implement these methods
+    public boolean isIncheck() {
+        return false;
+    }
+
+    public boolean isInCheckMate() {
+        return false;
+    }
+
+    public boolean isCastled(){
+        return false;
+    }
+
+    public MoveTransition makeMove(final Move move) {
+        return null;
+    }
+
     public abstract Collection<Piece>  getActivePieces();
+    public abstract Alliance getAlliance();
+    public abstract Player getOpponent();
 }
