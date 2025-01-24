@@ -11,7 +11,7 @@ import java.util.List;
 public class King extends Piece {
 
     public King(Alliance pieceAlliance, BoardPosition piecePosition) {
-        super ( pieceAlliance , piecePosition);
+        super ( PieceType.KING,pieceAlliance , piecePosition);
     }
 
     private static final int[][] LEGAL_CANDIDATE_MOVES = {

@@ -74,6 +74,7 @@ public abstract class Tile {
         @Override
         public String toString() {
             String pieceString = getPiece().toString();  // Get the piece's string representation
+            // write lower
             return this.getPiece().getPieceAlliance().isWhite() ? pieceString.toLowerCase() : pieceString;
         }
 

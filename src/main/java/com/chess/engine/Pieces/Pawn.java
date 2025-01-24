@@ -13,7 +13,7 @@ import java.util.List;
 public class Pawn extends Piece {
 
     public Pawn(Alliance alliance, BoardPosition piecePosition) {
-        super(alliance, piecePosition);
+        super(PieceType.PAWN,alliance, piecePosition);
     }
 
     private static final int[][] CANDIDATE_MOVE_VECTOR_COORDINATES = {

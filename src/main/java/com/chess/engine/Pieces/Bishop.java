@@ -12,7 +12,7 @@ import java.util.List;
 
 public class Bishop extends Piece {
     public Bishop(Alliance alliance, BoardPosition piecePosition) {
-        super(alliance, piecePosition);
+        super(PieceType.BISHOP,alliance, piecePosition);
     }
 
     private static final int[][] CANDIDATE_MOVE_VECTOR_COORDINATES = {

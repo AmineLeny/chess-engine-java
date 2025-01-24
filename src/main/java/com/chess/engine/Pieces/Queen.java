@@ -23,7 +23,7 @@ public class Queen extends Piece {
 
 
     public Queen (Alliance alliance , BoardPosition piecePosition) {
-        super( alliance , piecePosition);
+        super( PieceType.QUEEN,alliance , piecePosition);
     }
     @Override
     public Collection<Move> calculateLegalMove(Board board) {

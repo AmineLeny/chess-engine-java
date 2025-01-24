@@ -9,15 +9,16 @@ import java.util.Collection;
 import java.util.List;
 
 public abstract class Piece {
-
+    protected final PieceType pieceType;
     protected final BoardPosition piecePosition;
     protected final Alliance pieceAlliance;
     protected final boolean isFirstMove;
 
 
-    Piece(final Alliance pieceAlliance, final BoardPosition piecePosition) {
+    Piece(final PieceType pieceType ,final Alliance pieceAlliance, final BoardPosition piecePosition) {
         this.pieceAlliance = pieceAlliance;
         this.piecePosition = piecePosition;
+        this.pieceType = pieceType;
         // work to do here ! ! !
         this.isFirstMove = false;
     }
@@ -32,15 +33,49 @@ public abstract class Piece {
 
     public abstract Collection<Move> calculateLegalMove (final Board board);
 
+    public PieceType getPieceType() {
+        return pieceType;
+    }
+
 
     public enum PieceType {
 
-        BISHOP("B"),
-        KING("K"),
-        KNIGHT("N"),
-        PAWN("P"),
-        QUEEN("Q"),
-        ROOK("R");
+        BISHOP("B") {
+            @Override
+            public boolean isKing() {
+                return false;
+            }
+        },
+        KING("K") {
+            @Override
+            public boolean isKing() {
+                return true;
+            }
+        },
+        KNIGHT("N") {
+            @Override
+            public boolean isKing() {
+                return false;
+            }
+        },
+        PAWN("P") {
+            @Override
+            public boolean isKing() {
+                return false;
+            }
+        },
+        QUEEN("Q") {
+            @Override
+            public boolean isKing() {
+                return false;
+            }
+        },
+        ROOK("R") {
+            @Override
+            public boolean isKing() {
+                return false;
+            }
+        };
         private final String pieceType;
         PieceType(final String pieceType) {
             this.pieceType = pieceType;
@@ -49,6 +84,8 @@ public abstract class Piece {
         public String toString() {
             return pieceType;
         }
+
+        public abstract boolean isKing();
 
     }
 
