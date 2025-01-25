@@ -14,6 +14,21 @@ public abstract class Piece {
     protected final Alliance pieceAlliance;
     protected final boolean isFirstMove;
 
+    @Override
+    public boolean equals(final Object other) {
+        if( this == other ) return true;
+        if(!(other instanceof Piece p)) return false;  // pattern matching used here : Automatically casts other to Piece if it's an instance
+        return this.pieceAlliance == p.pieceAlliance && this.piecePosition.equals(p.piecePosition) && this.isFirstMove == p.isFirstMove;
+    }
+    @Override
+    public int hashCode() {
+        return 31*(31* (31* (31* pieceType.hashCode() + pieceAlliance.hashCode()))+ piecePosition.hashCode())+(isFirstMove ? 1 : 0);
+
+    }
+
+
+
+
 
     Piece(final PieceType pieceType ,final Alliance pieceAlliance, final BoardPosition piecePosition) {
         this.pieceAlliance = pieceAlliance;
@@ -32,6 +47,8 @@ public abstract class Piece {
     }
 
     public abstract Collection<Move> calculateLegalMove (final Board board);
+    public abstract Piece movePiece(Move move);
+
 
     public PieceType getPieceType() {
         return pieceType;

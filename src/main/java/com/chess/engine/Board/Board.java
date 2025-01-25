@@ -18,6 +18,8 @@ public class Board {
     private final Collection<Piece> blackPieces;
     private final WhitePlayer whitePlayer;
     private final BlackPlayer blackPlayer;
+
+
     private final Player currentPlayer;
 
     private Board( final BoardBuilder builder) {
@@ -31,6 +33,11 @@ public class Board {
         this.currentPlayer = builder.nextMoveMaker.choosePlayer(this.whitePlayer,this.blackPlayer);
     }
 
+
+
+    public Player getCurrentPlayer() {
+        return currentPlayer;
+    }
 
     public Player getBlackPlayer() {
         return blackPlayer;
