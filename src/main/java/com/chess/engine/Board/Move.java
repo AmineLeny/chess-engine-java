@@ -24,8 +24,30 @@ public abstract class Move {
         this.movedPiece = null;
         this.movedPieceAlliance = null;
     }
+
+    @Override
+    public int hashCode() {
+        return 31* (31* (1+ this.destinationCoordinate.hashCode())) + this.movedPiece.hashCode();
+    }
+
+    @Override
+    public boolean equals(final Object other) {
+        if (this == other) return true;
+        if( !(other instanceof Move m) ) return false;
+        return  m.destinationCoordinate.equals(this.destinationCoordinate) &&
+                m.getCurrentCoordinate().equals(this.getCurrentCoordinate()) &&
+                m.movedPiece.equals(this.getMovedPiece()) ;
+
+
+    }
+
+
     public BoardPosition getDestinationCoordinate() {
         return destinationCoordinate;
+    }
+
+    public BoardPosition getCurrentCoordinate() {
+        return movedPiece.getPiecePosition();
     }
 
     public Piece getMovedPiece() {
@@ -36,6 +58,15 @@ public abstract class Move {
         return movedPieceAlliance;
     }
 
+    public boolean isAttack(){
+        return false;
+    }
+    public boolean isCastlingMove(){
+        return false;
+    }
+    public Piece getAttackPiece(){
+        return null;
+    }
 
     public Board execute() {
         final BoardBuilder builder = new BoardBuilder();
