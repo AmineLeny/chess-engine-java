@@ -52,6 +52,7 @@ public abstract class Player {
         return legalMoves.contains(move);
     }
 // don't forget to implement these methods
+
     public boolean isIncheck() {
         return this.isInCheck;
     }
@@ -79,7 +80,11 @@ public abstract class Player {
     }
 
     public MoveTransition makeMove(final Move move) {
-        return null;
+        if(! isMoveLegal(move)){
+            return new MoveTransition(this.board, move, MoveStatus.ILLEGAL_MOVE);
+        }
+        final Board transitionBoard = move.execute();
+        final Collection<Move> kingAttacks = new ArrayList<>();
     }
 
     public abstract Collection<Piece>  getActivePieces();

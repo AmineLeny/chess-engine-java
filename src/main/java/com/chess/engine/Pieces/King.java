@@ -10,7 +10,7 @@ import java.util.List;
 
 public class King extends Piece {
 
-    public King(Alliance pieceAlliance, BoardPosition piecePosition) {
+    public King(final Alliance pieceAlliance, final BoardPosition piecePosition) {
         super ( PieceType.KING,pieceAlliance , piecePosition);
     }
 
