@@ -14,6 +14,8 @@ import java.util.Collection;
 public abstract class Player {
     protected final Board board;
     protected final King playerKing;
+
+
     protected final Collection<Move> legalMoves;
     protected final boolean isInCheck;
 
@@ -23,6 +25,11 @@ public abstract class Player {
         this.legalMoves = legalMoves;
         this.isInCheck = ! this.calculateAttackOnTile(this.playerKing.getPiecePosition() , opponentMoves).isEmpty();
 
+    }
+
+
+    public Collection<Move> getLegalMoves() {
+        return legalMoves;
     }
 
     private Collection<Move> calculateAttackOnTile(BoardPosition piecePosition, Collection<Move> opponentMoves) {

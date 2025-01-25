@@ -8,18 +8,21 @@ public abstract class Move {
 
     final Board board;
 
-
     final Piece movedPiece;
-
-
     final Alliance movedPieceAlliance;
     final BoardPosition destinationCoordinate;
-
+    public static final Move NULL_MOVE = new NullMove();
     private Move(final Board board, final Piece movedPiece, final BoardPosition destinationCoordinate) {
         this.board = board;
         this.movedPiece = movedPiece;
         this.destinationCoordinate = destinationCoordinate;
         this.movedPieceAlliance = movedPiece.getPieceAlliance();
+    }
+    private Move(final Board board, final BoardPosition destinationCoordinate) {
+        this.board = board;
+        this.destinationCoordinate = destinationCoordinate;
+        this.movedPiece = null;
+        this.movedPieceAlliance = null;
     }
     public BoardPosition getDestinationCoordinate() {
         return destinationCoordinate;
@@ -34,38 +37,35 @@ public abstract class Move {
     }
 
 
-    public abstract Board execute();
+    public Board execute() {
+        final BoardBuilder builder = new BoardBuilder();
+        for ( final Piece piece :this.board.getCurrentPlayer().getActivePieces()) {
+            // TO DO Override Hashcode and equals for piece
+            if( ! this.movedPiece.equals(piece)) {
+                builder.setPiece(piece);
+            }
+
+        }
+        for ( final Piece piece :this.board.getCurrentPlayer().getOpponent().getActivePieces()) {
+                builder.setPiece(piece);
+        }
+
+        //move the moved piece
+        builder.setPiece( this.movedPiece.movePiece(this) );
+        builder.setMoveMaker(this.board.getCurrentPlayer().getOpponent().getAlliance());
+
+        return builder.build();
+    }
 
 
     // attacking move class
-    public static final class AttackingMove extends Move {
+    public static class AttackingMove extends Move {
         final Piece attackedPiece ;
 
         public AttackingMove(final Board board, final Piece movedPiece,final BoardPosition destinationCoordinate, final Piece attackedPiece) {
             super(board, movedPiece, destinationCoordinate);
             this.attackedPiece = attackedPiece;
         }
-        @Override
-        public Board execute() {
-            final BoardBuilder builder = new BoardBuilder();
-            for ( final Piece piece :this.board.getCurrentPlayer().getActivePieces()) {
-                // TO DO Overrid Hashcode and equals for piece
-                if( ! this.movedPiece.equals(piece)) {
-                    builder.setPiece(piece);
-                }
-
-            }
-            for ( final Piece piece :this.board.getCurrentPlayer().getOpponent().getActivePieces()) {
-                    builder.setPiece(piece);
-            }
-
-            //move the moved piece
-            builder.setPiece( this.movedPiece.movePiece(this) );
-            builder.setMoveMaker(this.board.getCurrentPlayer().getOpponent().getAlliance());
-
-            return builder.build();
-        }
-
 
 
     }
@@ -75,16 +75,94 @@ public abstract class Move {
             super(board, movedPiece, destinationCoordinate);
         }
 
-        @Override
-        public Board execute() {
-            return null;
+       }
+
+
+    public static final class PawnMove extends Move {
+        public PawnMove(final Board board, final Piece movedPiece, final BoardPosition destinationCoordinate) {
+            super(board, movedPiece, destinationCoordinate);
+        }
+
+    }
+    public static  class PawnAttackMove extends AttackingMove {
+        public PawnAttackMove(final Board board, final Piece movedPiece, final BoardPosition destinationCoordinate , final Piece attackedPiece) {
+            super(board, movedPiece, destinationCoordinate , attackedPiece);
         }
 
     }
 
+    public static final class PawnEnPassantAttack extends PawnAttackMove {
+        public PawnEnPassantAttack(final Board board, final Piece movedPiece, final BoardPosition destinationCoordinate , final Piece attackedPiece) {
+            super(board, movedPiece, destinationCoordinate , attackedPiece);
+        }
+
+    }
+
+    public static final class PawnJump extends Move {
+        public PawnJump(final Board board, final Piece movedPiece, final BoardPosition destinationCoordinate) {
+            super(board, movedPiece, destinationCoordinate);
+        }
+
+    }
+
+     static abstract class CastleMove extends Move {
+        public CastleMove(final Board board, final Piece movedPiece, final BoardPosition destinationCoordinate) {
+            super(board, movedPiece, destinationCoordinate);
+        }
+
+    }
+
+    public static final class KingSideCastleMove extends CastleMove {
+        public KingSideCastleMove(final Board board, final Piece movedPiece, final BoardPosition destinationCoordinate) {
+            super(board, movedPiece, destinationCoordinate);
+        }
+
+    }
+
+    public static final class QueenSideCastleMove extends CastleMove {
+        public QueenSideCastleMove(final Board board, final Piece movedPiece, final BoardPosition destinationCoordinate) {
+            super(board, movedPiece, destinationCoordinate);
+        }
+
+    }
+
+    public static final class NullMove extends Move {
+        public NullMove() {
+            super(null,null);
+        }
+        @Override
+        public Board execute() {
+            throw new RuntimeException("Cannot execute NullMove");
+        }
+
+    }
+
+    public static class MoveFactory {
 
 
+        private MoveFactory() {
+            throw new RuntimeException("Non instantiable!");
+        }
 
+        public static Move createMove(final Board board, final BoardPosition currentCoordinate, final BoardPosition destinationCoordinate) {
+            for ( Move move : board.getAllLegalMoves()) {
+                if( move.getDestinationCoordinate().equals(destinationCoordinate) && move.getCurrentPosition().equals(currentCoordinate)) {
+                    return move;
+                }
+            }
+            return NULL_MOVE;
+        }
+    }
 
+    private BoardPosition getCurrentPosition() {
+        return this.movedPiece.getPiecePosition();
+    }
 
 }
+
+
+
+
+
+
+
