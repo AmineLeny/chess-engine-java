@@ -170,6 +170,7 @@ public class Board {
     public static class BoardBuilder {
         Map<BoardPosition, Piece> boardConfig;
         Alliance nextMoveMaker;
+        Pawn EnPassantPawn;
         public BoardBuilder() {
             boardConfig = new HashMap<>();
         }
@@ -188,5 +189,7 @@ public class Board {
         }
 
 
+        public void setEnPassantPawn(Pawn movedPawn) {
+        }
     }
 }
