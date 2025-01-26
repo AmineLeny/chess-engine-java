@@ -12,8 +12,8 @@ import java.util.List;
 public class Rook extends Piece {
 
 
-    public Rook(Alliance alliance, BoardPosition piecePosition){
-        super(PieceType.ROOK,alliance, piecePosition);
+    public Rook(Alliance alliance, BoardPosition piecePosition, final boolean isFirstMove){
+        super(PieceType.ROOK,alliance, piecePosition,isFirstMove);
     }
 
     private static final int[][] CANDIDATE_MOVE_VECTOR_COORDINATES = {
@@ -69,7 +69,7 @@ public class Rook extends Piece {
 
     @Override
     public Piece movePiece(Move move) {
-       return new Rook(move.getMovedPieceAlliance(), move.getDestinationCoordinate());
+       return new Rook(move.getMovedPieceAlliance(), move.getDestinationCoordinate(),false);
     }
 
     @Override

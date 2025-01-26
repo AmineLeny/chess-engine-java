@@ -53,7 +53,7 @@ public class Board {
         for (int y = 7; y >= 0; y--) {
             for (int x = 0; x < 8; x++) {
                 final String tileText = this.gameBoard.get(new BoardPosition(x, y)).toString();
-                builder.append(String.format("%3s", tileText));
+                builder.append(String.format("%3s", tileText ));
             }
             builder.append("\n");
         }
@@ -108,42 +108,42 @@ public class Board {
     public static Board createStandardBoard() {
         final BoardBuilder builder = new BoardBuilder();
         // Black Layout
-        builder.setPiece(new Rook(Alliance.BLACK, new BoardPosition(0, 7)));
-        builder.setPiece(new Knight(Alliance.BLACK, new BoardPosition(1, 7)));
-        builder.setPiece(new Bishop(Alliance.BLACK, new BoardPosition(2, 7)));
-        builder.setPiece(new Queen(Alliance.BLACK, new BoardPosition(3, 7)));
-        builder.setPiece(new King(Alliance.BLACK, new BoardPosition(4, 7)));
-        builder.setPiece(new Bishop(Alliance.BLACK, new BoardPosition(5, 7)));
-        builder.setPiece(new Knight(Alliance.BLACK, new BoardPosition(6, 7)));
-        builder.setPiece(new Rook(Alliance.BLACK, new BoardPosition(7, 7)));
+        builder.setPiece(new Rook(Alliance.BLACK, new BoardPosition(0, 7),false));
+        builder.setPiece(new Knight(Alliance.BLACK, new BoardPosition(1, 7),false));
+        builder.setPiece(new Bishop(Alliance.BLACK, new BoardPosition(2, 7),false));
+        builder.setPiece(new Queen(Alliance.BLACK, new BoardPosition(3, 7),false));
+        builder.setPiece(new King(Alliance.BLACK, new BoardPosition(4, 7),false));
+        builder.setPiece(new Bishop(Alliance.BLACK, new BoardPosition(5, 7),false));
+        builder.setPiece(new Knight(Alliance.BLACK, new BoardPosition(6, 7),false));
+        builder.setPiece(new Rook(Alliance.BLACK, new BoardPosition(7, 7),false));
 
-        builder.setPiece(new Pawn(Alliance.BLACK, new BoardPosition(0, 6)));
-        builder.setPiece(new Pawn(Alliance.BLACK, new BoardPosition(1, 6)));
-        builder.setPiece(new Pawn(Alliance.BLACK, new BoardPosition(2, 6)));
-        builder.setPiece(new Pawn(Alliance.BLACK, new BoardPosition(3, 6)));
-        builder.setPiece(new Pawn(Alliance.BLACK, new BoardPosition(4, 6)));
-        builder.setPiece(new Pawn(Alliance.BLACK, new BoardPosition(5, 6)));
-        builder.setPiece(new Pawn(Alliance.BLACK, new BoardPosition(6, 6)));
-        builder.setPiece(new Pawn(Alliance.BLACK, new BoardPosition(7, 6)));
+        builder.setPiece(new Pawn(Alliance.BLACK, new BoardPosition(0, 6),false));
+        builder.setPiece(new Pawn(Alliance.BLACK, new BoardPosition(1, 6),false));
+        builder.setPiece(new Pawn(Alliance.BLACK, new BoardPosition(2, 6),false));
+        builder.setPiece(new Pawn(Alliance.BLACK, new BoardPosition(3, 6),false));
+        builder.setPiece(new Pawn(Alliance.BLACK, new BoardPosition(4, 6),false));
+        builder.setPiece(new Pawn(Alliance.BLACK, new BoardPosition(5, 6),false));
+        builder.setPiece(new Pawn(Alliance.BLACK, new BoardPosition(6, 6),false));
+        builder.setPiece(new Pawn(Alliance.BLACK, new BoardPosition(7, 6),false));
 
 // White Layout
-        builder.setPiece(new Rook(Alliance.WHITE, new BoardPosition(0, 0)));
-        builder.setPiece(new Knight(Alliance.WHITE, new BoardPosition(1, 0)));
-        builder.setPiece(new Bishop(Alliance.WHITE, new BoardPosition(2, 0)));
-        builder.setPiece(new Queen(Alliance.WHITE, new BoardPosition(3, 0)));
-        builder.setPiece(new King(Alliance.WHITE, new BoardPosition(4, 0)));
-        builder.setPiece(new Bishop(Alliance.WHITE, new BoardPosition(5, 0)));
-        builder.setPiece(new Knight(Alliance.WHITE, new BoardPosition(6, 0)));
-        builder.setPiece(new Rook(Alliance.WHITE, new BoardPosition(7, 0)));
+        builder.setPiece(new Rook(Alliance.WHITE, new BoardPosition(0, 0),false));
+        builder.setPiece(new Knight(Alliance.WHITE, new BoardPosition(1, 0),false));
+        builder.setPiece(new Bishop(Alliance.WHITE, new BoardPosition(2, 0),false));
+        builder.setPiece(new Queen(Alliance.WHITE, new BoardPosition(3, 0),false));
+        builder.setPiece(new King(Alliance.WHITE, new BoardPosition(4, 0),false));
+        builder.setPiece(new Bishop(Alliance.WHITE, new BoardPosition(5, 0),false));
+        builder.setPiece(new Knight(Alliance.WHITE, new BoardPosition(6, 0),false));
+        builder.setPiece(new Rook(Alliance.WHITE, new BoardPosition(7, 0),false));
 
-        builder.setPiece(new Pawn(Alliance.WHITE, new BoardPosition(0, 1)));
-        builder.setPiece(new Pawn(Alliance.WHITE, new BoardPosition(1, 1)));
-        builder.setPiece(new Pawn(Alliance.WHITE, new BoardPosition(2, 1)));
-        builder.setPiece(new Pawn(Alliance.WHITE, new BoardPosition(3, 1)));
-        builder.setPiece(new Pawn(Alliance.WHITE, new BoardPosition(4, 1)));
-        builder.setPiece(new Pawn(Alliance.WHITE, new BoardPosition(5, 1)));
-        builder.setPiece(new Pawn(Alliance.WHITE, new BoardPosition(6, 1)));
-        builder.setPiece(new Pawn(Alliance.WHITE, new BoardPosition(7, 1)));
+        builder.setPiece(new Pawn(Alliance.WHITE, new BoardPosition(0, 1),false));
+        builder.setPiece(new Pawn(Alliance.WHITE, new BoardPosition(1, 1),false));
+        builder.setPiece(new Pawn(Alliance.WHITE, new BoardPosition(2, 1),false));
+        builder.setPiece(new Pawn(Alliance.WHITE, new BoardPosition(3, 1),false));
+        builder.setPiece(new Pawn(Alliance.WHITE, new BoardPosition(4, 1),false));
+        builder.setPiece(new Pawn(Alliance.WHITE, new BoardPosition(5, 1),false));
+        builder.setPiece(new Pawn(Alliance.WHITE, new BoardPosition(6, 1),false));
+        builder.setPiece(new Pawn(Alliance.WHITE, new BoardPosition(7, 1),false));
 
         //set white to move first
         builder.setMoveMaker(Alliance.WHITE);

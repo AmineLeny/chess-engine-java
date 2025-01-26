@@ -38,7 +38,7 @@ public abstract class Player {
         return legalMoves;
     }
 
-    private Collection<Move> calculateAttackOnTile(BoardPosition piecePosition, Collection<Move> opponentMoves) {
+     Collection<Move> calculateAttackOnTile(BoardPosition piecePosition, Collection<Move> opponentMoves) {
 
             Collection<Move> attackingMoves = new ArrayList<>();
             for ( Move move : opponentMoves) {
@@ -66,7 +66,7 @@ public abstract class Player {
     }
 // don't forget to implement these methods
 
-    public boolean isIncheck() {
+    public boolean getIsInCheck() {
         return this.isInCheck;
     }
 
@@ -107,4 +107,5 @@ public abstract class Player {
     public abstract Collection<Piece>  getActivePieces();
     public abstract Alliance getAlliance();
     public abstract Player getOpponent();
+    protected abstract Collection<Move> calculateKingCastles(Collection<Move> playerLegalMoves , Collection<Move> opponentLegalMoves);
 }

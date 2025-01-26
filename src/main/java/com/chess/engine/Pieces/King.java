@@ -10,8 +10,8 @@ import java.util.List;
 
 public class King extends Piece {
 
-    public King(final Alliance pieceAlliance, final BoardPosition piecePosition) {
-        super ( PieceType.KING,pieceAlliance , piecePosition);
+    public King(final Alliance pieceAlliance, final BoardPosition piecePosition, final boolean isFirstMove ) {
+        super ( PieceType.KING,pieceAlliance , piecePosition , isFirstMove );
     }
 
     private static final int[][] LEGAL_CANDIDATE_MOVES = {
@@ -59,7 +59,7 @@ public class King extends Piece {
 
     @Override
     public Piece movePiece(Move move) {
-        return new King(move.getMovedPieceAlliance(), move.getDestinationCoordinate());
+        return new King(move.getMovedPieceAlliance(), move.getDestinationCoordinate(),false);
     }
 
     @Override

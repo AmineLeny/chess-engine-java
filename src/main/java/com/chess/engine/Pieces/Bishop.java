@@ -11,8 +11,8 @@ import java.util.Collection;
 import java.util.List;
 
 public class Bishop extends Piece {
-    public Bishop(Alliance alliance, BoardPosition piecePosition) {
-        super(PieceType.BISHOP,alliance, piecePosition);
+    public Bishop(Alliance alliance, BoardPosition piecePosition, final boolean isFirstMove) {
+        super(PieceType.BISHOP,alliance, piecePosition , isFirstMove);
     }
 
     private static final int[][] CANDIDATE_MOVE_VECTOR_COORDINATES = {
@@ -73,7 +73,7 @@ public class Bishop extends Piece {
 
     @Override
     public Piece movePiece(Move move) {
-        return new Bishop(move.getMovedPieceAlliance(), move.getDestinationCoordinate());
+        return new Bishop(move.getMovedPieceAlliance(), move.getDestinationCoordinate(),false);
     }
 
     @Override
