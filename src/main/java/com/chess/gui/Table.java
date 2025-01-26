@@ -119,29 +119,32 @@ public class Table {
                 Piece piece = board.getTile(this.tileId).getPiece();
                 PieceType pieceType = piece.getPieceType();
                 Alliance pieceAlliance = piece.getPieceAlliance();
-                String piecePath ;
-                if(pieceAlliance.isWhite()) {
-                   piecePath = switch (pieceType) {
-                        case PAWN ->  "C:\\Users\\amine\\Documents\\Chess Engine\\Chess Engine\\art\\fancy\\BP.gif";
-                        case KING ->   "C:\\Users\\amine\\Documents\\Chess Engine\\Chess Engine\\art\\fancy\\BK.gif" ;
-                        case ROOK ->   "C:\\Users\\amine\\Documents\\Chess Engine\\Chess Engine\\art\\fancy\\BR.gif";
-                        case QUEEN ->  "C:\\Users\\amine\\Documents\\Chess Engine\\Chess Engine\\art\\fancy\\BQ.gif";
-                        case BISHOP -> "C:\\Users\\amine\\Documents\\Chess Engine\\Chess Engine\\art\\fancy\\BB.gif";
-                        case KNIGHT -> "C:\\Users\\amine\\Documents\\Chess Engine\\Chess Engine\\art\\fancy\\BN.gif" ;
+                // I've the path Dynamic
+                String piecePath  = "C:\\Users\\amine\\Documents\\Chess Engine\\Chess Engine\\art\\fancy\\" + pieceAlliance.toString() +pieceType.toString() + ".gif" ;
 
-                    };
-                }
-                else {
-                    piecePath = switch (pieceType) {
-                        case PAWN ->  "C:\\Users\\amine\\Documents\\Chess Engine\\Chess Engine\\art\\fancy\\WP.gif";
-                        case KING ->  "C:\\Users\\amine\\Documents\\Chess Engine\\Chess Engine\\art\\fancy\\WK.gif" ;
-                        case ROOK ->  "C:\\Users\\amine\\Documents\\Chess Engine\\Chess Engine\\art\\fancy\\WR.gif";
-                        case QUEEN -> "C:\\Users\\amine\\Documents\\Chess Engine\\Chess Engine\\art\\fancy\\WQ.gif";
-                        case BISHOP ->"C:\\Users\\amine\\Documents\\Chess Engine\\Chess Engine\\art\\fancy\\WB.gif";
-                        case KNIGHT -> "C:\\Users\\amine\\Documents\\Chess Engine\\Chess Engine\\art\\fancy\\WN.gif" ;
-
-                    };
-                }
+                // I hardcoded it first
+//                if(pieceAlliance.isWhite()) {
+//                   piecePath = switch (pieceType) {
+//                        case PAWN ->  "C:\\Users\\amine\\Documents\\Chess Engine\\Chess Engine\\art\\fancy\\BP.gif";
+//                        case KING ->   "C:\\Users\\amine\\Documents\\Chess Engine\\Chess Engine\\art\\fancy\\BK.gif" ;
+//                        case ROOK ->   "C:\\Users\\amine\\Documents\\Chess Engine\\Chess Engine\\art\\fancy\\BR.gif";
+//                        case QUEEN ->  "C:\\Users\\amine\\Documents\\Chess Engine\\Chess Engine\\art\\fancy\\BQ.gif";
+//                        case BISHOP -> "C:\\Users\\amine\\Documents\\Chess Engine\\Chess Engine\\art\\fancy\\BB.gif";
+//                        case KNIGHT -> "C:\\Users\\amine\\Documents\\Chess Engine\\Chess Engine\\art\\fancy\\BN.gif" ;
+//
+//                    };
+//                }
+//                else {
+//                    piecePath = switch (pieceType) {
+//                        case PAWN ->  "C:\\Users\\amine\\Documents\\Chess Engine\\Chess Engine\\art\\fancy\\WP.gif";
+//                        case KING ->  "C:\\Users\\amine\\Documents\\Chess Engine\\Chess Engine\\art\\fancy\\WK.gif" ;
+//                        case ROOK ->  "C:\\Users\\amine\\Documents\\Chess Engine\\Chess Engine\\art\\fancy\\WR.gif";
+//                        case QUEEN -> "C:\\Users\\amine\\Documents\\Chess Engine\\Chess Engine\\art\\fancy\\WQ.gif";
+//                        case BISHOP ->"C:\\Users\\amine\\Documents\\Chess Engine\\Chess Engine\\art\\fancy\\WB.gif";
+//                        case KNIGHT -> "C:\\Users\\amine\\Documents\\Chess Engine\\Chess Engine\\art\\fancy\\WN.gif" ;
+//
+//                    };
+//                }
 
 
                 try{
