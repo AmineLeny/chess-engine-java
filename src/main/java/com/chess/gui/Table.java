@@ -25,6 +25,8 @@ public class Table {
     private final Color greenTileColor = Color.decode("#769656");
     private final Color whiteTileColor = Color.decode("#EEEED2");
 
+    private final Board board;
+
     private final JFrame gameFrame;
     private BoardPanel boardPanel;
 
@@ -35,6 +37,7 @@ public class Table {
         final JMenuBar tableMenuBar = createTableMenuBar();
         this.gameFrame.setJMenuBar(tableMenuBar);
         this.gameFrame.setSize(OUTER_FRAM_DIMENSION);
+        this.board = Board.createStandardBoard();
         this.boardPanel = new BoardPanel();
         this.gameFrame.add(this.boardPanel, BorderLayout.CENTER);
         this.gameFrame.setVisible(true);
@@ -74,11 +77,11 @@ public class Table {
     private class BoardPanel extends JPanel {
 
         final List<TilePanel> boardTiles ;
-        final Board board;
+
         BoardPanel(){
 
             super(new GridLayout(8,8));
-             board = Board.createStandardBoard();
+
             this.boardTiles = new ArrayList<>();
 
                 for (int i = 7; i >=0 ; --i) {
