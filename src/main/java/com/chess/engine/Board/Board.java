@@ -12,9 +12,6 @@ import java.util.*;
 
 public class Board {
     private final Map<BoardPosition, Tile> gameBoard;
-
-
-
     private final Collection<Piece> whitePieces;
     private final Collection<Piece> blackPieces;
     private final WhitePlayer whitePlayer;

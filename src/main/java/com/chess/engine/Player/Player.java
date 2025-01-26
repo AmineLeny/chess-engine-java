@@ -13,6 +13,9 @@ import java.util.Collection;
 
 public abstract class Player {
     protected final Board board;
+
+
+
     protected final King playerKing;
 
 
@@ -27,6 +30,9 @@ public abstract class Player {
 
     }
 
+    public King getPlayerKing() {
+        return playerKing;
+    }
 
     public Collection<Move> getLegalMoves() {
         return legalMoves;
@@ -91,7 +97,11 @@ public abstract class Player {
             return new MoveTransition(this.board, move, MoveStatus.ILLEGAL_MOVE);
         }
         final Board transitionBoard = move.execute();
-        final Collection<Move> kingAttacks = new ArrayList<>();
+        final Collection<Move> kingAttacks = this.calculateAttackOnTile(transitionBoard.getCurrentPlayer().getOpponent().getPlayerKing().getPiecePosition(),
+                transitionBoard.getCurrentPlayer().getLegalMoves());
+        if(! kingAttacks.isEmpty() ) return new MoveTransition(transitionBoard, move,MoveStatus.LEAVES_PLAYER_IN_CHECK);
+        return new MoveTransition(transitionBoard,move, MoveStatus.DONE);
+
     }
 
     public abstract Collection<Piece>  getActivePieces();

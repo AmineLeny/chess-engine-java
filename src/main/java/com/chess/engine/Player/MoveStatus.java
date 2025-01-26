@@ -1,5 +1,7 @@
 package com.chess.engine.Player;
 
+import com.chess.engine.Board.Move;
+
 public enum MoveStatus {
     DONE {
         @Override
@@ -8,6 +10,12 @@ public enum MoveStatus {
         }
     },
     ILLEGAL_MOVE{
+        @Override
+        boolean isDone() {
+            return false;
+        }
+    },
+    LEAVES_PLAYER_IN_CHECK {
         @Override
         boolean isDone() {
             return false;
