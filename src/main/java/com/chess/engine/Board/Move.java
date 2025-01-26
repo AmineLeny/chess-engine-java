@@ -221,7 +221,7 @@ public abstract class Move {
                 builder.setPiece(piece);
             }
             builder.setPiece( this.movedPiece.movePiece(this) );
-            builder.setPiece( new Rook(castleRook.getPieceAlliance(),castleRook.getPiecePosition(),false));
+            builder.setPiece( new Rook(this.castleRook.getPieceAlliance(),this.castleRookDestination,false));
             builder.setMoveMaker(this.board.getCurrentPlayer().getOpponent().getAlliance());
             return builder.build();
          }

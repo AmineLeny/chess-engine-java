@@ -6,6 +6,7 @@ import com.chess.engine.Board.BoardPosition;
 import com.chess.engine.Board.Move;
 import com.chess.engine.Board.Tile;
 import com.chess.engine.Pieces.Piece;
+import com.chess.engine.Pieces.Rook;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -33,7 +34,7 @@ public class WhitePlayer extends Player {
     }
 
     @Override
-    protected Collection<Move> calculateKingCastles(Collection<Move> playerLegalMoves, Collection<Move> opponentLegalMoves) {
+    protected Collection<Move> calculateKingCastles(final Collection<Move> playerLegalMoves, final Collection<Move> opponentLegalMoves) {
         final List<Move> kingCastles = new ArrayList<>();
 
         if (this.playerKing.isFirstMove() && !this.getIsInCheck()) {
@@ -48,7 +49,13 @@ public class WhitePlayer extends Player {
                     calculateAttackOnTile(new BoardPosition(6, 0), opponentLegalMoves).isEmpty() &&
                     rookTileKingSide.getPiece().getPieceType().isRook()) {
 
-                kingCastles.add(new Move.KingSideCastleMove(this.board, this.getPlayerKing(), new BoardPosition(6, 0)));
+                kingCastles.add(new Move.KingSideCastleMove(
+                        this.board,
+                        this.getPlayerKing(),
+                        new BoardPosition(6, 0),
+                        (Rook)rookTileKingSide.getPiece(),
+                        rookTileKingSide.getPiece().getPiecePosition(),
+                        new BoardPosition(5, 0)));
             }
 
             // Queen-side castling (long castling for white)
@@ -63,7 +70,13 @@ public class WhitePlayer extends Player {
                     calculateAttackOnTile(new BoardPosition(2, 0), opponentLegalMoves).isEmpty() &&
                     rookTileQueenSide.getPiece().getPieceType().isRook()) {
 
-                kingCastles.add(new Move.QueenSideCastleMove(this.board, this.getPlayerKing(), new BoardPosition(2, 0)));
+                kingCastles.add(new Move.QueenSideCastleMove(
+                        this.board,
+                        this.getPlayerKing(),
+                        new BoardPosition(2, 0),
+                        (Rook)rookTileQueenSide.getPiece(),
+                        rookTileQueenSide.getPiece().getPiecePosition(),
+                        new BoardPosition(3, 0)));
             }
         }
 
