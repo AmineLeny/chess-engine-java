@@ -7,6 +7,7 @@ import java.util.Map;
 
 public abstract class Tile {
 
+
     protected final BoardPosition tileCoordinate;
 
     public static final Map<BoardPosition, EmptyTile > EMPTY_TILES_CACHE = createAllPossibleEmptyTiles();
@@ -24,6 +25,11 @@ public abstract class Tile {
         return ImmutableMap.copyOf(emptyTiles);
 
     }
+
+    public BoardPosition getTileCoordinate() {
+        return tileCoordinate;
+    }
+
 
     // factory methode to generate Tiles
     public static Tile createTile(final int xCoordinate , final int yCoordinate , Piece piece) {
