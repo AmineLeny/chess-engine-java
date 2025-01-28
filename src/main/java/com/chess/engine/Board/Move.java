@@ -13,23 +13,26 @@ public abstract class Move {
     final Piece movedPiece;
     final Alliance movedPieceAlliance;
     final BoardPosition destinationCoordinate;
+    final boolean isFirstMove;
     public static final Move NULL_MOVE = new NullMove();
     private Move(final Board board, final Piece movedPiece, final BoardPosition destinationCoordinate) {
         this.board = board;
         this.movedPiece = movedPiece;
         this.destinationCoordinate = destinationCoordinate;
         this.movedPieceAlliance = movedPiece.getPieceAlliance();
+        this.isFirstMove = movedPiece.isFirstMove();
     }
     private Move(final Board board, final BoardPosition destinationCoordinate) {
         this.board = board;
         this.destinationCoordinate = destinationCoordinate;
         this.movedPiece = null;
         this.movedPieceAlliance = null;
+        this.isFirstMove = false;
     }
 
     @Override
     public int hashCode() {
-        return 31* (31* (1+ this.destinationCoordinate.hashCode())) + this.movedPiece.hashCode();
+        return 31*(31* (31* (1+ this.destinationCoordinate.hashCode())) + this.movedPiece.hashCode())+this.movedPiece.getPiecePosition().hashCode();
     }
 
     @Override
@@ -73,7 +76,6 @@ public abstract class Move {
     public Board execute() {
         final BoardBuilder builder = new BoardBuilder();
         for ( final Piece piece :this.board.getCurrentPlayer().getActivePieces()) {
-            // TO DO Override Hashcode and equals for piece
             if( ! this.movedPiece.equals(piece)) {
                 builder.setPiece(piece);
             }
@@ -137,6 +139,18 @@ public abstract class Move {
         public MajorMove(final Board board, final Piece movedPiece, final BoardPosition destinationCoordinate) {
             super(board, movedPiece, destinationCoordinate);
         }
+        @Override
+        public boolean equals(final Object other) {
+            if( this == other ) return true;
+            if ( ! (other instanceof  MajorMove move) ) return false;
+            return super.equals(other);
+        }
+
+        @Override
+        public String toString() {
+            return movedPiece.getPieceType().toString() + BoardUtils.getPositionAtCoordinate(this.destinationCoordinate) ;
+        }
+
 
        }
 
