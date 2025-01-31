@@ -82,12 +82,12 @@ class TakenPiecesPanel extends JPanel {
 
         for (final Piece takenPiece : whiteTakenPieces) {
             try {
-                final BufferedImage image = ImageIO.read(new File("art/holywarriors/"
+                final BufferedImage image = ImageIO.read(new File("art/fancy/"
                         + takenPiece.getPieceAlliance().toString()+ "" + takenPiece.toString()
                         + ".gif"));
                 final ImageIcon ic = new ImageIcon(image);
                 final JLabel imageLabel = new JLabel(new ImageIcon(ic.getImage().getScaledInstance(
-                        ic.getIconWidth() - 15, ic.getIconWidth() - 15, Image.SCALE_SMOOTH)));
+                        ic.getIconWidth() - 30, ic.getIconWidth() - 30, Image.SCALE_SMOOTH)));
                 this.southPanel.add(imageLabel);
             }
             catch (final IOException e) {
@@ -97,12 +97,12 @@ class TakenPiecesPanel extends JPanel {
 
         for (final Piece takenPiece : blackTakenPieces) {
             try {
-                final BufferedImage image = ImageIO.read(new File("art/holywarriors/"
+                final BufferedImage image = ImageIO.read(new File("art/fancy/"
                         + takenPiece.getPieceAlliance().toString() + "" + takenPiece.toString()
                         + ".gif"));
                 final ImageIcon ic = new ImageIcon(image);
                 final JLabel imageLabel = new JLabel(new ImageIcon(ic.getImage().getScaledInstance(
-                        ic.getIconWidth() - 15, ic.getIconWidth() - 15, Image.SCALE_SMOOTH)));
+                        ic.getIconWidth() - 30, ic.getIconWidth() - 30, Image.SCALE_SMOOTH)));
                 this.northPanel.add(imageLabel);
 
             } catch (final IOException e) {

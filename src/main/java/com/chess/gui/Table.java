@@ -39,7 +39,10 @@ public class Table {
 
 
     private final JFrame gameFrame;
+    private final GameHistoryPanel gameHistoryPanel;
+    private final TakenPiecesPanel takenPiecesPanel;
     private BoardPanel boardPanel;
+    private final MoveLog moveLog;
     private Board board;
     private Tile sourceTile;
     private Tile destinationTile;
@@ -57,9 +60,14 @@ public class Table {
         this.gameFrame.setSize(OUTER_FRAM_DIMENSION);
         this.board = Board.createStandardBoard();
         this.boardPanel = new BoardPanel();
+        this.moveLog = new MoveLog();
+        this.gameHistoryPanel = new GameHistoryPanel();
+        this.takenPiecesPanel = new TakenPiecesPanel();
         this.boardDirection = BoardDirection.NORMAL;
         this.highLightLegalMoves = false;
         this.gameFrame.add(this.boardPanel, BorderLayout.CENTER);
+        this.gameFrame.add(this.takenPiecesPanel, BorderLayout.WEST);
+        this.gameFrame.add(this.gameHistoryPanel, BorderLayout.EAST);
         this.gameFrame.setVisible(true);
         this.gameFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
@@ -259,6 +267,7 @@ public class Table {
                                 board = transition.getTransitionBoard();
                                 System.out.println("Move completed. New turn: " +
                                         board.getCurrentPlayer().getAlliance());
+                                moveLog.addMove(move);
                             } else {
                                 System.out.println("Invalid move attempted!");
                             }
@@ -270,6 +279,8 @@ public class Table {
                         }
 
                         SwingUtilities.invokeLater(() -> {
+                            gameHistoryPanel.redo(board, moveLog);
+                            takenPiecesPanel.redo(moveLog);
                             boardPanel.drawBoard(board);
                         });
                     }
