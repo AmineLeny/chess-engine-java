@@ -15,6 +15,10 @@ public class Rook extends Piece {
     public Rook(Alliance alliance, BoardPosition piecePosition, final boolean isFirstMove){
         super(PieceType.ROOK,alliance, piecePosition,isFirstMove);
     }
+    public Rook(Alliance alliance, BoardPosition piecePosition) {
+        super(PieceType.ROOK,alliance, piecePosition, true);
+    }
+
 
     private static final int[][] CANDIDATE_MOVE_VECTOR_COORDINATES = {
             {0, 1}, // UP

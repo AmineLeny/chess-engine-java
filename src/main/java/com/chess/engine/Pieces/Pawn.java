@@ -4,6 +4,7 @@ import com.chess.engine.Alliance;
 import com.chess.engine.Board.*;
 import com.chess.engine.Board.Move.AttackingMove;
 import com.chess.engine.Board.Move.MajorMove;
+import com.chess.engine.Board.Move.PawnJump;
 import com.google.common.collect.ImmutableList;
 
 import java.util.ArrayList;
@@ -11,9 +12,12 @@ import java.util.Collection;
 import java.util.List;
 
 public class Pawn extends Piece {
-
-    public Pawn(Alliance alliance, BoardPosition piecePosition,final boolean isFirstMove) {
+    public Pawn(Alliance alliance, BoardPosition piecePosition,final boolean isFirstMove){
         super(PieceType.PAWN,alliance, piecePosition, isFirstMove);
+
+    }
+    public Pawn(Alliance alliance, BoardPosition piecePosition) {
+        super(PieceType.PAWN,alliance, piecePosition, true);
     }
 
     private static final int[][] CANDIDATE_MOVE_VECTOR_COORDINATES = {
@@ -63,7 +67,7 @@ public class Pawn extends Piece {
                                         && BoardUtils.isPositionValid(jumpPosition)
 
                                 ) {
-                                    legalMoves.add(new MajorMove(board, this, jumpPosition));
+                                    legalMoves.add(new PawnJump(board, this, jumpPosition));
                                 }
                             }
 

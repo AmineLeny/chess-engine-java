@@ -14,6 +14,11 @@ public class King extends Piece {
         super ( PieceType.KING,pieceAlliance , piecePosition , isFirstMove );
     }
 
+    public King(Alliance alliance, BoardPosition piecePosition) {
+        super(PieceType.KING,alliance, piecePosition, true);
+    }
+
+
     private static final int[][] LEGAL_CANDIDATE_MOVES = {
             {1,0}, // RIGHT
             {-1,0},  // LEFT

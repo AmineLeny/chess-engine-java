@@ -25,6 +25,10 @@ public class Queen extends Piece {
     public Queen (Alliance alliance , BoardPosition piecePosition ,final boolean isFirstMove) {
         super( PieceType.QUEEN,alliance , piecePosition,  isFirstMove);
     }
+    public Queen(Alliance alliance, BoardPosition piecePosition) {
+        super(PieceType.QUEEN,alliance, piecePosition, true);
+    }
+
     @Override
     public Collection<Move> calculateLegalMove(Board board) {
 

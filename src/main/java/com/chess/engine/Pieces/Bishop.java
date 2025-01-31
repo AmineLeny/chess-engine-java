@@ -14,6 +14,9 @@ public class Bishop extends Piece {
     public Bishop(Alliance alliance, BoardPosition piecePosition, final boolean isFirstMove) {
         super(PieceType.BISHOP,alliance, piecePosition , isFirstMove);
     }
+    public Bishop(Alliance alliance, BoardPosition piecePosition) {
+        super(PieceType.BISHOP,alliance, piecePosition, true);
+    }
 
     private static final int[][] CANDIDATE_MOVE_VECTOR_COORDINATES = {
             {1, 1}, // UP-RIGHT
