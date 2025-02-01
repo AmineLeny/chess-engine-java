@@ -58,7 +58,7 @@ public class Queen extends Piece {
                         final Piece candidatePiece = candidateDestinationTile.getPiece();
                         final Alliance candidatePieceAlliance = candidatePiece.getPieceAlliance();
                         if (this.pieceAlliance != candidatePieceAlliance) {
-                            legalMoves.add(new Move.AttackingMove(board, this, candidateDestinationPosition, candidatePiece));
+                            legalMoves.add(new Move.MajorAttackMove(board, this, candidateDestinationPosition, candidatePiece));
                         }
 
                         break; // the path is blocked either by an enemy-piece or an ally-piece so we break out of the loop

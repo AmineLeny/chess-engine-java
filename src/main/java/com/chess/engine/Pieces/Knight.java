@@ -2,6 +2,7 @@ package com.chess.engine.Pieces;
 import com.chess.engine.Alliance;
 import com.chess.engine.Board.*;
 import com.chess.engine.Board.Move.AttackingMove;
+import com.chess.engine.Board.Move.MajorAttackMove;
 import com.chess.engine.Board.Move.MajorMove;
 import com.google.common.collect.ImmutableList;
 
@@ -46,7 +47,7 @@ public class Knight extends Piece {
                     final Piece candidatePiece = candidateDestinationTile.getPiece();
                     final Alliance candidatePieceAlliance = candidatePiece.getPieceAlliance();
                     if( this.pieceAlliance != candidatePieceAlliance )  {
-                        legalMoves.add(new AttackingMove(board,this,candidateDestinationPosition,candidatePiece));
+                        legalMoves.add(new MajorAttackMove(board,this,candidateDestinationPosition,candidatePiece));
                     }
                 }
         }

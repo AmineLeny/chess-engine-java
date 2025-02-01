@@ -17,6 +17,10 @@ public class Board {
     private final WhitePlayer whitePlayer;
     private final BlackPlayer blackPlayer;
 
+
+
+    private final Pawn enPassantPawn;
+
     final Collection<Move> whiteStandardMoves;
     final Collection<Move> blackStandardMoves;
     private final Player currentPlayer;
@@ -28,16 +32,21 @@ public class Board {
 
     private Board(final BoardBuilder builder) {
         this.gameBoard = createGameBoard(builder);
-        whitePieces = calculateActivePieces(this.gameBoard , Alliance.WHITE);
+        this.whitePieces = calculateActivePieces(this.gameBoard , Alliance.WHITE);
         blackPieces = calculateActivePieces(this.gameBoard , Alliance.BLACK);
-        whiteStandardMoves = calculateLegalMoves(this.whitePieces);
-        blackStandardMoves = calculateLegalMoves(this.blackPieces);
-        this.whitePlayer = new WhitePlayer(this,whiteStandardMoves,blackStandardMoves);
-        this.blackPlayer = new BlackPlayer(this,whiteStandardMoves,blackStandardMoves);
+        this.enPassantPawn = builder.enPassantPawn;
+        this.whiteStandardMoves = calculateLegalMoves(this.whitePieces);
+        this.blackStandardMoves = calculateLegalMoves(this.blackPieces);
+        this.whitePlayer = new WhitePlayer(this,whiteStandardMoves,this.blackStandardMoves);
+        this.blackPlayer = new BlackPlayer(this,whiteStandardMoves,this.blackStandardMoves);
         this.currentPlayer = builder.nextMoveMaker.choosePlayer(this.whitePlayer,this.blackPlayer);
         this.opponentPlayer = currentPlayer instanceof WhitePlayer ? this.blackPlayer : this.whitePlayer ;
     }
 
+
+    public Pawn getEnPassantPawn() {
+        return enPassantPawn;
+    }
 
 
     public Player getCurrentPlayer() {
@@ -173,10 +182,12 @@ public class Board {
     public static class BoardBuilder {
         Map<BoardPosition, Piece> boardConfig;
         Alliance nextMoveMaker;
-        Pawn EnPassantPawn;
+        Pawn enPassantPawn;
+
         public BoardBuilder() {
-            boardConfig = new HashMap<>();
+            this.boardConfig = new HashMap<>();
         }
+
         public BoardBuilder setPiece(final Piece piece) {
             this.boardConfig.put(piece.getPiecePosition(), piece);
             return this;
@@ -184,16 +195,16 @@ public class Board {
 
         public BoardBuilder setMoveMaker(final Alliance nextMoveMaker) {
             this.nextMoveMaker = nextMoveMaker;
+            return this;
+        }
 
+        public BoardBuilder setEnPassantPawn(Pawn enPassantPawn) {
+            this.enPassantPawn = enPassantPawn;
             return this;
         }
 
         public Board build() {
             return new Board(this);
-        }
-
-
-        public void setEnPassantPawn(Pawn movedPawn) {
         }
     }
 }

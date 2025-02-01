@@ -43,7 +43,7 @@ public class BoardUtils {
         for (int y = 0; y < 8; y++) {
             for (int x = 0; x < 8; x++) {
                 char file = (char) ('a' + x);
-                int rank = 8 - y;
+                int rank = 8 - y +1;
                 notationMap.put(new BoardPosition(x, y), String.format("%c%d", file, rank));
             }
         }
