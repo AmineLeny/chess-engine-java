@@ -4,7 +4,11 @@ import com.chess.engine.Alliance;
 import com.chess.engine.Board.Board.BoardBuilder;
 import com.chess.engine.Pieces.Pawn;
 import com.chess.engine.Pieces.Piece;
+import com.chess.engine.Pieces.Piece.PieceType;
 import com.chess.engine.Pieces.Rook;
+
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 public abstract class Move {
 
@@ -218,9 +222,91 @@ public abstract class Move {
 
 
        }
+    public static class PawnPromotion
+            extends Move {
+
+        final Move decoratedMove;
+        final Pawn promotedPawn;
+        public PawnPromotion(final Move decoratedMove){
+            super(decoratedMove.getBoard(),decoratedMove.getMovedPiece(),decoratedMove.getDestinationCoordinate());
+            this.decoratedMove = decoratedMove;
+            this.promotedPawn = (Pawn) decoratedMove.getMovedPiece();
+        }
 
 
-    public static final class PawnMove extends Move {
+        @Override
+        public boolean equals(Object o) {
+            return this==o || o instanceof PawnPromotion && super.equals(o);
+        }
+
+        @Override
+        public int hashCode() {
+            return decoratedMove.hashCode() + 31 * (promotedPawn.hashCode());
+        }
+
+        @Override
+        public Board execute() {
+            final Board pawnMovedBoard = this.decoratedMove.execute();
+            final BoardBuilder builder = new BoardBuilder();
+
+            System.out.println("Before filtering - Active pieces: " +
+                    pawnMovedBoard.getCurrentPlayer().getActivePieces().size());
+            if (decoratedMove.getAttackPiece() == null) {
+                for ( final Piece piece : pawnMovedBoard.getCurrentPlayer().getActivePieces()){
+                    if(!this.promotedPawn.equals(piece)) {
+                        builder.setPiece(piece);
+                    }
+                }
+                for( final Piece piece : pawnMovedBoard.getCurrentPlayer().getOpponent().getActivePieces()){
+                    builder.setPiece(piece);
+                }
+
+                builder.setPiece(this.promotedPawn.getPromotionPiece(this).movePiece(this));
+
+            }else {
+                for ( final Piece piece : pawnMovedBoard.getCurrentPlayer().getActivePieces()){
+                    if(!this.promotedPawn.equals(piece)) {
+                        builder.setPiece(piece);
+                    }
+                }
+                for( final Piece piece : pawnMovedBoard.getCurrentPlayer().getOpponent().getActivePieces()){
+                  if(!decoratedMove.getAttackPiece().equals(piece))  builder.setPiece(piece);
+                }
+
+                builder.setPiece(this.promotedPawn.getPromotionPiece(this).movePiece(this));
+            }
+
+
+            builder.setMoveMaker(pawnMovedBoard.getCurrentPlayer().getAlliance());
+            return builder.build();
+        }
+
+        @Override
+        public boolean isAttack() {
+            return this.decoratedMove.isAttack();
+        }
+
+        @Override
+        public Piece getAttackPiece() {
+            return this.decoratedMove.getAttackPiece();
+        }
+
+        @Override
+        public String toString() {
+            return BoardUtils.getPositionAtCoordinate(this.movedPiece.getPiecePosition()) + "-" +
+                    BoardUtils.getPositionAtCoordinate(this.destinationCoordinate) + "=" + PieceType.QUEEN.toString();
+        }
+
+    }
+
+
+
+    private Board getBoard() {
+        return this.board;
+    }
+
+
+    public static class PawnMove extends Move {
         public PawnMove(final Board board, final Piece movedPiece, final BoardPosition destinationCoordinate) {
             super(board, movedPiece, destinationCoordinate);
         }
@@ -357,6 +443,8 @@ public abstract class Move {
          public boolean isCastlingMove() {
             return true;
          }
+
+
 
          @Override
          public int hashCode() {

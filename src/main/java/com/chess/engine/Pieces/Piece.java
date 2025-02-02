@@ -142,7 +142,7 @@ public abstract class Piece {
         }
         @Override
         public String toString() {
-            return pieceType;
+            return pieceType.toString();
         }
 
         public abstract boolean isKing();

@@ -44,7 +44,12 @@ public class Pawn extends Piece {
             // Forward moves
             if (newPosition[0] == 0) {  // Moving straight
                 if (!candidateTile.isTileOccupied()) {
-                    legalMoves.add(new PawnMove(board, this, candidatePosition));
+                    if(this.pieceAlliance.isPawnPromotionSquare(candidatePosition)) {
+                        legalMoves.add(new PawnPromotion(new PawnMove(board,this,candidatePosition)));
+                    }
+                    else {
+                        legalMoves.add(new PawnMove(board, this, candidatePosition));
+                    }
 
                     // Two-square first move
                     if ((this.pieceAlliance == Alliance.WHITE && this.piecePosition.y() == 1) ||
@@ -61,8 +66,14 @@ public class Pawn extends Piece {
             // Diagonal captures
             else if (candidateTile.isTileOccupied() &&
                     candidateTile.getPiece().pieceAlliance != this.pieceAlliance) {
-                legalMoves.add(new PawnAttackMove(board, this, candidatePosition,
-                        candidateTile.getPiece()));
+                if(this.pieceAlliance.isPawnPromotionSquare(candidatePosition)) {
+                    legalMoves.add(new PawnPromotion(new PawnAttackMove(board, this, candidatePosition,
+                            candidateTile.getPiece())));
+                }
+                else {
+                    legalMoves.add(new PawnAttackMove(board, this, candidatePosition,
+                            candidateTile.getPiece()));
+                }
             }
         }
         // En Passant (checked separately from regular moves)
@@ -104,6 +115,10 @@ public class Pawn extends Piece {
     @Override
     public String toString() {
         return PieceType.PAWN.toString();
+    }
+
+    public Piece getPromotionPiece(PawnPromotion pawnPromotion) {
+        return new Queen(this.pieceAlliance,this.piecePosition,false);
     }
 }
 

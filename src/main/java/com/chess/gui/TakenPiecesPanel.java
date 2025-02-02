@@ -58,7 +58,7 @@ class TakenPiecesPanel extends JPanel {
                 final Piece takenPiece = move.getAttackPiece();
                 if(takenPiece.getPieceAlliance().isWhite()) {
                     whiteTakenPieces.add(takenPiece);
-                } else if(takenPiece.getPieceAlliance().isBlack()){
+                } else if( takenPiece.getPieceAlliance().isBlack()){
                     blackTakenPieces.add(takenPiece);
                 } else {
                     throw new RuntimeException("Should not reach here!");
