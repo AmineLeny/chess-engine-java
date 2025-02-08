@@ -9,6 +9,7 @@ import com.chess.engine.Board.Tile;
 import com.chess.engine.Pieces.Piece;
 import com.chess.engine.Pieces.Piece.PieceType;
 import com.chess.engine.Player.MoveTransition;
+import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 
 import java.awt.event.MouseEvent;
@@ -391,11 +392,17 @@ public class Table {
         }
 
         private Collection<Move> pieceLegalMoves(final Board board) {
-            if(humanMovedPiece != null && humanMovedPiece.getPieceAlliance().equals(board.getCurrentPlayer().getAlliance())) {
-                return humanMovedPiece.calculateLegalMove(board);
+            if (humanMovedPiece != null && humanMovedPiece.getPieceAlliance().equals(board.getCurrentPlayer().getAlliance())) {
+                Collection<Move> legalMoves = new ArrayList<>(humanMovedPiece.calculateLegalMove(board));
+                legalMoves.addAll(board.getCurrentPlayer().calculateKingCastles(
+                        board.getCurrentPlayer().getLegalMoves(),
+                        board.getOpponentPlayer().getLegalMoves()
+                ));
+                return legalMoves;
             }
             return Collections.emptyList();
         }
+
 
 
 

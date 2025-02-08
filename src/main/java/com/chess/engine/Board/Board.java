@@ -38,7 +38,7 @@ public class Board {
         this.whiteStandardMoves = calculateLegalMoves(this.whitePieces);
         this.blackStandardMoves = calculateLegalMoves(this.blackPieces);
         this.whitePlayer = new WhitePlayer(this,whiteStandardMoves,this.blackStandardMoves);
-        this.blackPlayer = new BlackPlayer(this,whiteStandardMoves,this.blackStandardMoves);
+        this.blackPlayer = new BlackPlayer(this,blackStandardMoves,this.whiteStandardMoves);
         this.currentPlayer = builder.nextMoveMaker.choosePlayer(this.whitePlayer,this.blackPlayer);
         this.opponentPlayer = currentPlayer instanceof WhitePlayer ? this.blackPlayer : this.whitePlayer ;
     }
@@ -177,6 +177,11 @@ public class Board {
     public Iterable<Move> getAllLegalMoves() {
         return Iterables.unmodifiableIterable(Iterables.concat(whiteStandardMoves,blackStandardMoves));
     }
+    public Collection<Move> getKingMoves() {
+        return currentPlayer.calculateKingCastles(currentPlayer.getLegalMoves(),opponentPlayer.getLegalMoves());
+    }
+
+
 
 
     public static class BoardBuilder {

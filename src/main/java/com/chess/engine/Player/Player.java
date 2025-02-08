@@ -26,7 +26,7 @@ public abstract class Player {
     Player(Board board, Collection<Move> legalMoves, Collection<Move> opponentMoves) {
         this.board = board;
         this.playerKing = establishKing();
-        this.legalMoves = ImmutableList.copyOf(Iterables.concat(legalMoves, calculateKingCastles(legalMoves,opponentMoves)));
+        this.legalMoves = ImmutableList.copyOf(Iterables.concat(legalMoves, this.calculateKingCastles(legalMoves,opponentMoves)));
         this.isInCheck = ! this.calculateAttackOnTile(this.playerKing.getPiecePosition() , opponentMoves).isEmpty();
 
     }
@@ -39,7 +39,7 @@ public abstract class Player {
         return legalMoves;
     }
 
-     Collection<Move> calculateAttackOnTile(BoardPosition piecePosition, Collection<Move> opponentMoves) {
+     public Collection<Move> calculateAttackOnTile(BoardPosition piecePosition, Collection<Move> opponentMoves) {
 
             Collection<Move> attackingMoves = new ArrayList<>();
             for ( Move move : opponentMoves) {
@@ -63,6 +63,7 @@ public abstract class Player {
     }
 
     public boolean isMoveLegal(final Move move) {
+
         return legalMoves.contains(move);
     }
 // don't forget to implement these methods
@@ -94,7 +95,10 @@ public abstract class Player {
     }
 
     public MoveTransition makeMove(final Move move) {
-        if(! isMoveLegal(move)){
+        System.out.println(legalMoves);
+        System.out.println( move.isCastlingMove());
+        if(move.isCastlingMove()) System.out.println("Castling");
+        else if(! this.legalMoves.contains(move)){
             return new MoveTransition(this.board, move, MoveStatus.ILLEGAL_MOVE);
         }
         final Board transitionBoard = move.execute();
@@ -108,5 +112,5 @@ public abstract class Player {
     public abstract Collection<Piece>  getActivePieces();
     public abstract Alliance getAlliance();
     public abstract Player getOpponent();
-    protected abstract Collection<Move> calculateKingCastles(Collection<Move> playerLegalMoves , Collection<Move> opponentLegalMoves);
+    public abstract Collection<Move> calculateKingCastles(Collection<Move> playerLegalMoves , Collection<Move> opponentLegalMoves);
 }

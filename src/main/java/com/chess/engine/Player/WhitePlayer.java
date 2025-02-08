@@ -17,11 +17,15 @@ public class WhitePlayer extends Player {
         super(board,whiteStandardMoves,blackStandardMoves);
     }
 
+
     @Override
     public Collection<Piece> getActivePieces() {
         return this.board.getWhitePieces();
     }
-
+    @Override
+    public String toString() {
+        return "White";
+    }
     @Override
     public Alliance getAlliance() {
 
@@ -34,7 +38,7 @@ public class WhitePlayer extends Player {
     }
 
     @Override
-    protected Collection<Move> calculateKingCastles(final Collection<Move> playerLegalMoves, final Collection<Move> opponentLegalMoves) {
+    public Collection<Move> calculateKingCastles(final Collection<Move> playerLegalMoves, final Collection<Move> opponentLegalMoves) {
         final List<Move> kingCastles = new ArrayList<>();
 
         if (this.playerKing.isFirstMove() && !this.getIsInCheck()) {
@@ -82,5 +86,7 @@ public class WhitePlayer extends Player {
 
         return kingCastles;
     }
+
+
 
 }

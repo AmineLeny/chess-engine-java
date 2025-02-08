@@ -446,24 +446,31 @@ public abstract class Move {
 
 
 
-         @Override
-         public int hashCode() {
-            int result = super.hashCode();
-            return 31*(31 * result + this.castleRook.hashCode())+ this.castleRookDestination.hashCode();
-         }
-         @Override
-         public boolean equals(final Object other) {
-            if (this == other) return true;
-            if( ! (other instanceof CastleMove c)) {
-                return false;
-            }
-            return super.equals(c) && this.castleRook.equals(c.getCastleRook());
-         }
+          @Override
+          public int hashCode() {
+              final int prime = 31;
+              int result = super.hashCode();
+              result = prime * result + this.castleRook.hashCode();
+              result = prime * result + this.castleRookDestination.hashCode();
+              return result;
+          }
+
+          @Override
+          public boolean equals(final Object other) {
+              if (this == other) {
+                  return true;
+              }
+              if (!(other instanceof CastleMove)) {
+                  return false;
+              }
+              final CastleMove otherCastleMove = (CastleMove) other;
+              return super.equals(otherCastleMove) && this.castleRook.equals(otherCastleMove.getCastleRook());
+          }
 
 
 
 
-     }
+      }
 
     public static final class KingSideCastleMove extends CastleMove {
         public KingSideCastleMove(final Board board, final Piece movedPiece,

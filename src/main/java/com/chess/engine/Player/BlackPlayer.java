@@ -13,7 +13,7 @@ import java.util.Collection;
 import java.util.List;
 
 public class BlackPlayer extends Player {
-    public BlackPlayer(final Board board,final Collection<Move> whiteStandardMoves, final Collection<Move> blackStandardMoves) {
+    public BlackPlayer(final Board board,final Collection<Move> blackStandardMoves, final Collection<Move> whiteStandardMoves) {
         super(board, blackStandardMoves,whiteStandardMoves);
     }
 
@@ -32,9 +32,13 @@ public class BlackPlayer extends Player {
         // until now
      return this.board.getWhitePlayer();
     }
+    @Override
+    public String toString() {
+        return "Black";
+    }
 
     @Override
-    protected Collection<Move> calculateKingCastles(final Collection<Move> playerLegalMoves, final Collection<Move> opponentLegalMoves) {
+    public Collection<Move> calculateKingCastles(final Collection<Move> playerLegalMoves, final Collection<Move> opponentLegalMoves) {
         final List<Move> kingCastles = new ArrayList<>();
 
         if (this.playerKing.isFirstMove() && !this.getIsInCheck()) {
