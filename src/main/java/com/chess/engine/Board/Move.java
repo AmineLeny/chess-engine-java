@@ -7,9 +7,6 @@ import com.chess.engine.Pieces.Piece;
 import com.chess.engine.Pieces.Piece.PieceType;
 import com.chess.engine.Pieces.Rook;
 
-import java.util.Objects;
-import java.util.stream.Collectors;
-
 public abstract class Move {
 
     final Board board;
@@ -51,7 +48,7 @@ public abstract class Move {
     }
 
     String disambiguationFile() {
-        for(final Move move : this.board.getCurrentPlayer().getLegalMoves()) {
+        for(final Move move : this.board.getCurrentPlayer().getLegalMovesPlayer()) {
             if(move.getDestinationCoordinate() == this.destinationCoordinate && !this.equals(move) &&
                     this.movedPiece.getPieceType().equals(move.getMovedPiece().getPieceType())) {
                 return BoardUtils.getPositionAtCoordinate(this.movedPiece.getPiecePosition()).substring(0, 1);
@@ -460,10 +457,9 @@ public abstract class Move {
               if (this == other) {
                   return true;
               }
-              if (!(other instanceof CastleMove)) {
+              if (!(other instanceof CastleMove otherCastleMove)) {
                   return false;
               }
-              final CastleMove otherCastleMove = (CastleMove) other;
               return super.equals(otherCastleMove) && this.castleRook.equals(otherCastleMove.getCastleRook());
           }
 
@@ -485,6 +481,10 @@ public abstract class Move {
         public String toString() {
             return "O-O";
         }
+        @Override
+        public boolean isCastlingMove() {
+            return true;
+        }
 
     }
 
@@ -500,6 +500,10 @@ public abstract class Move {
         @Override
         public String toString() {
             return "O-O-O";
+        }
+        @Override
+        public boolean isCastlingMove() {
+            return true;
         }
 
     }

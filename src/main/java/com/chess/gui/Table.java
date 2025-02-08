@@ -9,7 +9,6 @@ import com.chess.engine.Board.Tile;
 import com.chess.engine.Pieces.Piece;
 import com.chess.engine.Pieces.Piece.PieceType;
 import com.chess.engine.Player.MoveTransition;
-import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 
 import java.awt.event.MouseEvent;
@@ -73,11 +72,30 @@ public class Table {
         this.gameFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
+    enum PlayerType {
+        HUMAN,
+        COMPUTER
+    }
+
     private JMenuBar createTableMenuBar() {
         final JMenuBar menuBar = new JMenuBar();
         menuBar.add(createFileMenu());
         menuBar.add(createPreferencesMenu());
         return menuBar;
+    }
+    private JMenu createOptionsMenu() {
+        final JMenu optionMenu = new JMenu("Options");
+        final JMenuItem setupGameMenuItem = new JMenuItem("Setup Game");
+        setupGameMenuItem.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Table
+            }
+        });
+
+        optionMenu.add(setupGameMenuItem);
+        return optionMenu;
     }
 
     private JMenu createFileMenu() {
@@ -395,8 +413,8 @@ public class Table {
             if (humanMovedPiece != null && humanMovedPiece.getPieceAlliance().equals(board.getCurrentPlayer().getAlliance())) {
                 Collection<Move> legalMoves = new ArrayList<>(humanMovedPiece.calculateLegalMove(board));
                 legalMoves.addAll(board.getCurrentPlayer().calculateKingCastles(
-                        board.getCurrentPlayer().getLegalMoves(),
-                        board.getOpponentPlayer().getLegalMoves()
+                        board.getCurrentPlayer().getLegalMovesPlayer(),
+                        board.getOpponentPlayer().getLegalMovesPlayer()
                 ));
                 return legalMoves;
             }

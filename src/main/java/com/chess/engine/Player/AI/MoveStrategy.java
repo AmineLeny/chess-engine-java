@@ -5,6 +5,6 @@ import com.chess.engine.Board.Move;
 public interface MoveStrategy {
 
 
-    Move execute(Board board, int depth);
+    Move execute(Board board);
 
 }

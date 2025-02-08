@@ -78,7 +78,7 @@ public class WhitePlayer extends Player {
                         this.board,
                         this.getPlayerKing(),
                         new BoardPosition(2, 0),
-                        (Rook)rookTileQueenSide.getPiece(),
+                        (Rook) rookTileQueenSide.getPiece(),
                         rookTileQueenSide.getPiece().getPiecePosition(),
                         new BoardPosition(3, 0)));
             }

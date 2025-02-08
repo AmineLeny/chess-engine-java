@@ -178,7 +178,7 @@ public class Board {
         return Iterables.unmodifiableIterable(Iterables.concat(whiteStandardMoves,blackStandardMoves));
     }
     public Collection<Move> getKingMoves() {
-        return currentPlayer.calculateKingCastles(currentPlayer.getLegalMoves(),opponentPlayer.getLegalMoves());
+        return currentPlayer.calculateKingCastles(currentPlayer.getLegalMovesPlayer(),opponentPlayer.getLegalMovesPlayer());
     }
 
 
